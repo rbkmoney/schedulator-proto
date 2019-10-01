@@ -5,7 +5,6 @@ include "payout_processing.thrift"
 namespace java com.rbkmoney.damsel.schedule
 namespace erlang com.rbkmoney.damsel.schedule
 
-typedef list<Event> Events
 typedef string URL
 typedef base.ID ScheduleID
 
