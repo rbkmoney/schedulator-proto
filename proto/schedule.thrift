@@ -73,14 +73,6 @@ struct ScheduleContextValidated {
 struct ScheduleJobDeregistered {}
 
 /**
- * Диапазон для выборки событий
- */
-struct EventRange {
-    1: optional base.EventID after
-    2: required i32 limit
-}
-
-/**
  * Один из возможных вариантов события, порождённого расписания
  */
 union ScheduleChange {
