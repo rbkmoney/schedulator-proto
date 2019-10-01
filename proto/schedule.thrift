@@ -83,24 +83,6 @@ union ScheduleChange {
 }
 
 /**
- * Один из возможных вариантов содержания события
- */
-struct EventPayload {
-    /* Набор изменений, порождённых расписанием */
-    1: list<ScheduleChange> schedule_changes
-}
-
-/**
- * Событие, атомарный фрагмент истории бизнес-объекта, например расписания
- */
-struct Event {
-    1: required base.EventID id
-    2: required base.Timestamp created_at
-    3: required ScheduleID source
-    4: required EventPayload payload
-}
-
-/**
 * Интерфейс сервиса регистрирующего и высчитывающего расписания выполнений
 **/
 service Schedulator {
