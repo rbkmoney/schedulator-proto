@@ -39,7 +39,7 @@ struct ScheduledJobContext {
 }
 
 union ContextValidationResponse {
-    1: required list<string> errors
+    1: optional list<string> errors
 }
 
 struct DeregisterJob {}
