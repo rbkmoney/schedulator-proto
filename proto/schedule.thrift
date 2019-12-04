@@ -39,8 +39,19 @@ struct ScheduledJobContext {
 }
 
 struct ContextValidationResponse {
+    1: required ValidationResponseStatus responseStatus
+}
+
+union ValidationResponseStatus {
+    1: ValidationSuccess success
+    2: ValidationFailed failed
+}
+
+struct ValidationFailed {
     1: optional list<string> errors
 }
+
+struct ValidationSuccess {}
 
 exception ScheduleNotFound {}
 exception ScheduleAlreadyExists {}
