@@ -48,7 +48,7 @@ union ValidationResponseStatus {
 }
 
 struct ValidationFailed {
-    1: optional list<string> errors
+    1: required list<string> errors
 }
 
 struct ValidationSuccess {}
