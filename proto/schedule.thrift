@@ -38,14 +38,10 @@ struct ScheduledJobContext {
     3: required base.Timestamp next_cron_time
 }
 
-union ContextValidationResponse {
+struct ContextValidationResponse {
     1: optional list<string> errors
 }
 
-struct DeregisterJob {}
-
-exception NoLastEvent {}
-exception EventNotFound {}
 exception ScheduleNotFound {}
 exception ScheduleAlreadyExists {}
 exception BadContextProvided {
