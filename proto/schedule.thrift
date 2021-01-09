@@ -8,6 +8,7 @@ namespace erlang com.rbkmoney.damsel.schedule
 typedef string URL
 typedef base.ID ScheduleID
 
+// Контекст job'ы в котором можно хранить некое ее состояние
 typedef base.Opaque GenericServiceExecutionContext
 
 struct RegisterJobRequest {
@@ -22,19 +23,30 @@ struct ExecuteJobRequest {
     2: required GenericServiceExecutionContext service_execution_context
 }
 
+/**
+ * Сущность scheduler'а по которому будет строиться время исполнения job'ы
+ */
 union Schedule {
     1: DominantBasedSchedule dominant_schedule
 }
 
+/**
+ * Расписания scheduler'а будет строиться исходя из domonant'ы
+ */
 struct DominantBasedSchedule {
+    // Id сущности в dominant'e
     1: required domain.BusinessScheduleRef business_schedule_ref
+    // Id календаря по которому будет работает scheduler
     2: required domain.CalendarRef calendar_ref
     3: optional domain.DataRevision revision
 }
 
 struct ScheduledJobContext {
+    // Следующий вызов scheduler'а
     1: required base.Timestamp next_fire_time
+    // Предыдущий вызов scheduler'а
     2: required base.Timestamp prev_fire_time
+    // Следующий вызов scheduler'а по cron. То есть без учета каких-либо сдвигов
     3: required base.Timestamp next_cron_time
 }
 
@@ -105,9 +117,16 @@ service Schedulator {
 **/
 service ScheduledJobExecutor {
 
-    /** метод вызывается при попытке зарегистрировать Job */
+    /**
+     * Метод вызывается при попытке зарегистрировать Job
+     * На этом этапе следует выполнять какую-либо проверку, если она необходима.
+     * И как результат подтверждить/отказать в регистрации job'ы
+    **/
     ContextValidationResponse ValidateExecutionContext(1: GenericServiceExecutionContext context)
 
+    /**
+    * Вызывается для зарегистрированной job'ы
+    **/
     GenericServiceExecutionContext ExecuteJob(1: ExecuteJobRequest request)
 
 }
